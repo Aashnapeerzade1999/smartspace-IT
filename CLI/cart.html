@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Wishlist - Smart Space</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #e53935;
+            --secondary-color: #212121;
+            --background-color: #ffffff;
+            --text-color: #212121;
+            --accent-color: #e53935;
+            --footer-bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --success-color: #4CAF50;
+            --warning-color: #FF9800;
+            --info-color: #2196F3;
+        }
+
+        /* Theme Variables */
+        .theme-black-red {
+            --primary-color: #e53935;
+            --secondary-color: #212121;
+            --background-color: #ffffff;
+            --text-color: #212121;
+            --accent-color: #e53935;
+            --footer-bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-white-red {
+            --primary-color: #e53935;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #e53935;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-blue-white {
+            --primary-color: #2196F3;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #2196F3;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-black-golden {
+            --primary-color: #FFD700;
+            --secondary-color: #212121;
+            --background-color: #ffffff;
+            --text-color: #212121;
+            --accent-color: #FFD700;
+            --footer-bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-white-golden {
+            --primary-color: #FFD700;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #FFD700;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-white-purple {
+            --primary-color: #9C27B0;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #9C27B0;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-multicolor {
+            --primary-color: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #ff6b6b;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--nav-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .logo span {
+            color: var(--text-color);
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-actions button {
+            background: none;
+            border: none;
+            margin-left: 15px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        .language-selector {
+            position: relative;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 100;
+        }
+
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+
+        .language-option {
+            padding: 5px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .language-option:hover {
+            background: #f5f5f5;
+        }
+
+        .theme-selector {
+            position: relative;
+        }
+
+        .theme-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 100;
+            width: 180px;
+        }
+
+        .theme-selector:hover .theme-dropdown {
+            display: block;
+        }
+
+        .theme-option {
+            padding: 8px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .theme-option:hover {
+            background: #f5f5f5;
+        }
+
+        .theme-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .theme-black-red .theme-color {
+            background: linear-gradient(135deg, #212121 50%, #e53935 50%);
+        }
+
+        .theme-white-red .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #e53935 50%);
+        }
+
+        .theme-blue-white .theme-color {
+            background: linear-gradient(135deg, #2196F3 50%, #ffffff 50%);
+        }
+
+        .theme-black-golden .theme-color {
+            background: linear-gradient(135deg, #212121 50%, #FFD700 50%);
+        }
+
+        .theme-white-golden .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #FFD700 50%);
+        }
+
+        .theme-white-purple .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #9C27B0 50%);
+        }
+
+        .theme-multicolor .theme-color {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-menu a {
+            padding: 15px 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Wishlist Hero */
+        .wishlist-hero {
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--accent-color) 0%, rgba(0,0,0,0.1) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .wishlist-hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .wishlist-hero p {
+            font-size: 18px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Wishlist Controls */
+        .wishlist-controls {
+            padding: 30px 0;
+            background: var(--background-color);
+        }
+
+        .controls-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .wishlist-stats {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+
+        .stat-icon {
+            font-size: 20px;
+        }
+
+        .wishlist-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .sort-filter {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .sort-select, .filter-select {
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: white;
+            outline: none;
+            font-size: 14px;
+        }
+
+        /* Wishlist Content */
+        .wishlist-content {
+            padding: 40px 0;
+        }
+
+        .wishlist-empty {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .empty-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+
+        .empty-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .empty-text {
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .wishlist-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .wishlist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .card-wishlist-actions {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 2;
+        }
+
+        .wishlist-action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .wishlist-action-btn:hover {
+            background: var(--accent-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .card-image {
+            height: 200px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-image img {
+            max-width: 100%;
+            max-height: 100%;
+            transition: transform 0.5s;
+        }
+
+        .wishlist-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-category {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            line-height: 1.4;
+        }
+
+        .card-description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .card-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .stars {
+            color: #FFD700;
+            margin-right: 8px;
+        }
+
+        .rating-count {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .card-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .current-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 16px;
+        }
+
+        .discount-badge {
+            background: var(--success-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .card-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .card-btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .card-btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .card-btn-secondary {
+            background: #f5f5f5;
+            color: var(--text-color);
+        }
+
+        .card-btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Wishlist Groups */
+        .wishlist-groups {
+            margin-top: 50px;
+        }
+
+        .groups-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .groups-title {
+            font-size: 24px;
+            color: var(--text-color);
+        }
+
+        .groups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .group-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .group-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-color);
+        }
+
+        .group-card.active {
+            border-color: var(--accent-color);
+            background: rgba(0,0,0,0.02);
+        }
+
+        .group-icon {
+            font-size: 30px;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .group-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .group-count {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Recently Viewed */
+        .recently-viewed {
+            padding: 60px 0;
+            background: var(--footer-bg);
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            height: 160px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-title {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .product-action {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+
+        /* Bottom Navigation (Mobile) */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .nav-item.active {
+            color: var(--accent-color);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .search-bar {
+                max-width: 300px;
+            }
+            
+            .wishlist-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                order: 1;
+            }
+            
+            .search-bar {
+                order: 3;
+                max-width: 100%;
+                margin: 15px 0 0;
+            }
+            
+            .header-actions {
+                order: 2;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .bottom-nav {
+                display: block;
+            }
+            
+            .controls-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .wishlist-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .sort-filter {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .wishlist-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .groups-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .wishlist-hero h1 {
+                font-size: 32px;
+            }
+            
+            .card-actions {
+                flex-direction: column;
+            }
+            
+            .groups-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="theme-black-red">
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">Smart<span>Space</span></div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for templates...">
+                    <button>🔍</button>
+                </div>
+                <div class="header-actions">
+                    <div class="language-selector">
+                        <button>🌐 English</button>
+                        <div class="language-dropdown">
+                            <div class="language-option" data-lang="en">English</div>
+                            <div class="language-option" data-lang="ar">العربية</div>
+                            <div class="language-option" data-lang="fr">Français</div>
+                            <div class="language-option" data-lang="es">Español</div>
+                        </div>
+                    </div>
+                    <div class="theme-selector">
+                        <button>🎨 Theme</button>
+                        <div class="theme-dropdown">
+                            <div class="theme-option theme-black-red" data-theme="theme-black-red">
+                                <div class="theme-color"></div>
+                                Black & Red
+                            </div>
+                            <div class="theme-option theme-white-red" data-theme="theme-white-red">
+                                <div class="theme-color"></div>
+                                White & Red
+                            </div>
+                            <div class="theme-option theme-blue-white" data-theme="theme-blue-white">
+                                <div class="theme-color"></div>
+                                Blue & White
+                            </div>
+                            <div class="theme-option theme-black-golden" data-theme="theme-black-golden">
+                                <div class="theme-color"></div>
+                                Black & Golden
+                            </div>
+                            <div class="theme-option theme-white-golden" data-theme="theme-white-golden">
+                                <div class="theme-color"></div>
+                                White & Golden
+                            </div>
+                            <div class="theme-option theme-white-purple" data-theme="theme-white-purple">
+                                <div class="theme-color"></div>
+                                White & Purple
+                            </div>
+                            <div class="theme-option theme-multicolor" data-theme="theme-multicolor">
+                                <div class="theme-color"></div>
+                                Multicolor
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="window.location.href='login.html'">👤 Account</button>
+                    <button onclick="window.location.href='cart.html'">🛒 Cart (3)</button>
+                </div>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="product.html">Templates</a>
+                <a href="shop.html">Services</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Wishlist Hero -->
+    <section class="wishlist-hero">
+        <div class="container">
+            <h1>My Wishlist</h1>
+            <p>Save your favorite templates and access them anytime</p>
+        </div>
+    </section>
+
+    <!-- Wishlist Controls -->
+    <section class="wishlist-controls">
+        <div class="container">
+            <div class="controls-container">
+                <div class="wishlist-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">❤️</span>
+                        <span>12 Items</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">💰</span>
+                        <span>Total: $1,247.85</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🎯</span>
+                        <span>3 Categories</span>
+                    </div>
+                </div>
+                
+                <div class="wishlist-actions">
+                    <button class="btn btn-primary">
+                        <span>🛒</span>
+                        Add All to Cart
+                    </button>
+                    <button class="btn btn-secondary">
+                        <span>📧</span>
+                        Share Wishlist
+                    </button>
+                    <button class="btn btn-outline">
+                        <span>🔄</span>
+                        Clear All
+                    </button>
+                </div>
+                
+                <div class="sort-filter">
+                    <select class="sort-select">
+                        <option>Sort by: Date Added</option>
+                        <option>Sort by: Price Low to High</option>
+                        <option>Sort by: Price High to Low</option>
+                        <option>Sort by: Name A-Z</option>
+                        <option>Sort by: Rating</option>
+                    </select>
+                    
+                    <select class="filter-select">
+                        <option>Filter by: All Items</option>
+                        <option>Filter by: E-commerce</option>
+                        <option>Filter by: Business</option>
+                        <option>Filter by: Portfolio</option>
+                        <option>Filter by: On Sale</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wishlist Content -->
+    <section class="wishlist-content">
+        <div class="container">
+            <!-- Wishlist Groups -->
+            <div class="wishlist-groups">
+                <div class="groups-header">
+                    <h2 class="groups-title">Wishlist Groups</h2>
+                    <button class="btn btn-outline">
+                        <span>➕</span>
+                        New Group
+                    </button>
+                </div>
+                
+                <div class="groups-grid">
+                    <div class="group-card active">
+                        <div class="group-icon">⭐</div>
+                        <h3 class="group-title">Favorites</h3>
+                        <div class="group-count">8 items</div>
+                    </div>
+                    
+                    <div class="group-card">
+                        <div class="group-icon">🛒</div>
+                        <h3 class="group-title">To Buy Later</h3>
+                        <div class="group-count">3 items</div>
+                    </div>
+                    
+                    <div class="group-card">
+                        <div class="group-icon">💼</div>
+                        <h3 class="group-title">Business Ideas</h3>
+                        <div class="group-count">5 items</div>
+                    </div>
+                    
+                    <div class="group-card">
+                        <div class="group-icon">🎨</div>
+                        <h3 class="group-title">Inspiration</h3>
+                        <div class="group-count">4 items</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wishlist Items -->
+            <div class="wishlist-grid">
+                <!-- Item 1 -->
+                <div class="wishlist-card">
+                    <div class="card-badge">BEST SELLER</div>
+                    <div class="card-wishlist-actions">
+                        <button class="wishlist-action-btn">❌</button>
+                        <button class="wishlist-action-btn">📁</button>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/300x200" alt="E-commerce Pro Template">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-category">E-commerce</div>
+                        <h3 class="card-title">E-commerce Pro Template</h3>
+                        <p class="card-description">Complete online store solution with advanced features and payment integration.</p>
+                        
+                        <div class="card-rating">
+                            <div class="stars">★★★★★</div>
+                            <div class="rating-count">(342)</div>
+                        </div>
+                        
+                        <div class="card-price">
+                            <span class="current-price">$129.99</span>
+                            <span class="original-price">$199.99</span>
+                            <span class="discount-badge">35% OFF</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="card-btn card-btn-primary">
+                                <span>🛒</span>
+                                Add to Cart
+                            </button>
+                            <button class="card-btn card-btn-secondary">
+                                <span>👁️</span>
+                                View Details
+                            </button>
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <span>📅</span>
+                                <span>Added 2 days ago</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>👁️</span>
+                                <span>12 views</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="wishlist-card">
+                    <div class="card-badge">NEW</div>
+                    <div class="card-wishlist-actions">
+                        <button class="wishlist-action-btn">❌</button>
+                        <button class="wishlist-action-btn">📁</button>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/300x200/2196F3/ffffff" alt="Business Corporate Template">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-category">Business</div>
+                        <h3 class="card-title">Business Corporate Template</h3>
+                        <p class="card-description">Professional corporate website with modern design and responsive layout.</p>
+                        
+                        <div class="card-rating">
+                            <div class="stars">★★★★☆</div>
+                            <div class="rating-count">(128)</div>
+                        </div>
+                        
+                        <div class="card-price">
+                            <span class="current-price">$89.99</span>
+                            <span class="original-price">$129.99</span>
+                            <span class="discount-badge">30% OFF</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="card-btn card-btn-primary">
+                                <span>🛒</span>
+                                Add to Cart
+                            </button>
+                            <button class="card-btn card-btn-secondary">
+                                <span>👁️</span>
+                                View Details
+                            </button>
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <span>📅</span>
+                                <span>Added 1 week ago</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>👁️</span>
+                                <span>8 views</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="wishlist-card">
+                    <div class="card-badge">POPULAR</div>
+                    <div class="card-wishlist-actions">
+                        <button class="wishlist-action-btn">❌</button>
+                        <button class="wishlist-action-btn">📁</button>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/300x200/4CAF50/ffffff" alt="Portfolio Creative Template">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-category">Portfolio</div>
+                        <h3 class="card-title">Portfolio Creative Template</h3>
+                        <p class="card-description">Showcase your work with this stunning portfolio template for creatives.</p>
+                        
+                        <div class="card-rating">
+                            <div class="stars">★★★★★</div>
+                            <div class="rating-count">(256)</div>
+                        </div>
+                        
+                        <div class="card-price">
+                            <span class="current-price">$69.99</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="card-btn card-btn-primary">
+                                <span>🛒</span>
+                                Add to Cart
+                            </button>
+                            <button class="card-btn card-btn-secondary">
+                                <span>👁️</span>
+                                View Details
+                            </button>
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <span>📅</span>
+                                <span>Added 3 days ago</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>👁️</span>
+                                <span>15 views</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 4 -->
+                <div class="wishlist-card">
+                    <div class="card-wishlist-actions">
+                        <button class="wishlist-action-btn">❌</button>
+                        <button class="wishlist-action-btn">📁</button>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/300x200/9C27B0/ffffff" alt="Restaurant Deluxe Template">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-category">Restaurant</div>
+                        <h3 class="card-title">Restaurant Deluxe Template</h3>
+                        <p class="card-description">Beautiful restaurant website with menu, reservation system, and gallery.</p>
+                        
+                        <div class="card-rating">
+                            <div class="stars">★★★★☆</div>
+                            <div class="rating-count">(187)</div>
+                        </div>
+                        
+                        <div class="card-price">
+                            <span class="current-price">$79.99</span>
+                            <span class="original-price">$99.99</span>
+                            <span class="discount-badge">20% OFF</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="card-btn card-btn-primary">
+                                <span>🛒</span>
+                                Add to Cart
+                            </button>
+                            <button class="card-btn card-btn-secondary">
+                                <span>👁️</span>
+                                View Details
+                            </button>
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <span>📅</span>
+                                <span>Added 5 days ago</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>👁️</span>
+                                <span>10 views</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 5 -->
+                <div class="wishlist-card">
+                    <div class="card-badge">LIMITED</div>
+                    <div class="card-wishlist-actions">
+                        <button class="wishlist-action-btn">❌</button>
+                        <button class="wishlist-action-btn">📁</button>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/300x200/FF9800/ffffff" alt="Multi-vendor Marketplace">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-category">E-commerce</div>
+                        <h3 class="card-title">Multi-vendor Marketplace</h3>
+                        <p class="card-description">Create your own Amazon-like marketplace with multiple vendor support.</p>
+                        
+                        <div class="card-rating">
+                            <div class="stars">★★★★★</div>
+                            <div class="rating-count">(94)</div>
+                        </div>
+                        
+                        <div class="card-price">
+                            <span class="current-price">$199.99</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="card-btn card-btn-primary">
+                                <span>🛒</span>
+                                Add to Cart
+                            </button>
+                            <button class="card-btn card-btn-secondary">
+                                <span>👁️</span>
+                                View Details
+                            </button>
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <span>📅</span>
+                                <span>Added 2 weeks ago</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>👁️</span>
+                                <span>22 views</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Item 6 -->
+                <div class="wishlist-card">
+                    <div class="card-wishlist-actions">
+                        <button class="wishlist-action-btn">❌</button>
+                        <button class="wishlist-action-btn">📁</button>
+                    </div>
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/300x200/607D8B/ffffff" alt="Blog Magazine Template">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-category">Blog</div>
+                        <h3 class="card-title">Blog Magazine Template</h3>
+                        <p class="card-description">Modern magazine-style blog template with advanced content management.</p>
+                        
+                        <div class="card-rating">
+                            <div class="stars">★★★★☆</div>
+                            <div class="rating-count">(143)</div>
+                        </div>
+                        
+                        <div class="card-price">
+                            <span class="current-price">$59.99</span>
+                            <span class="original-price">$79.99</span>
+                            <span class="discount-badge">25% OFF</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="card-btn card-btn-primary">
+                                <span>🛒</span>
+                                Add to Cart
+                            </button>
+                            <button class="card-btn card-btn-secondary">
+                                <span>👁️</span>
+                                View Details
+                            </button>
+                        </div>
+                        
+                        <div class="card-meta">
+                            <div class="meta-item">
+                                <span>📅</span>
+                                <span>Added 1 day ago</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>👁️</span>
+                                <span>7 views</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recently Viewed -->
+    <section class="recently-viewed">
+        <div class="container">
+            <h2 class="section-title">Recently Viewed Templates</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/250x160" alt="Template 1">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Startup Business Template</h3>
+                        <div class="product-price">$74.99</div>
+                        <div class="product-action">
+                            <button class="action-btn card-btn-primary">Add to Cart</button>
+                            <button class="action-btn card-btn-secondary">❤️</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/250x160/2196F3/ffffff" alt="Template 2">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Agency Portfolio</h3>
+                        <div class="product-price">$89.99</div>
+                        <div class="product-action">
+                            <button class="action-btn card-btn-primary">Add to Cart</button>
+                            <button class="action-btn card-btn-secondary">❤️</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/250x160/4CAF50/ffffff" alt="Template 3">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Medical Website</h3>
+                        <div class="product-price">$99.99</div>
+                        <div class="product-action">
+                            <button class="action-btn card-btn-primary">Add to Cart</button>
+                            <button class="action-btn card-btn-secondary">❤️</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://via.placeholder.com/250x160/9C27B0/ffffff" alt="Template 4">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Fashion E-commerce</h3>
+                        <div class="product-price">$129.99</div>
+                        <div class="product-action">
+                            <button class="action-btn card-btn-primary">Add to Cart</button>
+                            <button class="action-btn card-btn-secondary">❤️</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Smart Space</h3>
+                    <p>Professional website templates and design services to elevate your online presence.</p>
+                    <div class="social-links">
+                        <a href="#">f</a>
+                        <a href="#">t</a>
+                        <a href="#">in</a>
+                        <a href="#">ig</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Templates</a></li>
+                        <li><a href="#">Customization</a></li>
+                        <li><a href="#">SEO Services</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Website Design</a></li>
+                        <li><a href="#">E-commerce Solutions</a></li>
+                        <li><a href="#">SEO Optimization</a></li>
+                        <li><a href="#">Content Management</a></li>
+                        <li><a href="#">Hosting Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>📧 info@smartspace.com</li>
+                        <li>📞 +1 (555) 123-4567</li>
+                        <li>📍 123 Design Street, Creative City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Smart Space. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <div class="nav-items">
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">📁</div>
+                <span>Templates</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🛒</div>
+                <span>Cart</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <div class="nav-icon">❤️</div>
+                <span>Wishlist</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        // Theme Switching
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const theme = this.getAttribute('data-theme');
+                document.body.className = theme;
+            });
+        });
+
+        // Language Switching
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                document.querySelector('.language-selector button').textContent = 
+                    this.textContent + (lang === 'ar' ? ' 🌐' : ' 🌐');
+                
+                if(lang === 'ar') {
+                    document.body.dir = 'rtl';
+                    document.querySelector('.logo').innerHTML = 'Smart<span>Space</span>';
+                    document.querySelector('.search-bar input').placeholder = 'ابحث عن القوالب...';
+                } else {
+                    document.body.dir = 'ltr';
+                    document.querySelector('.logo').innerHTML = 'Smart<span>Space</span>';
+                    document.querySelector('.search-bar input').placeholder = 'Search for templates...';
+                }
+            });
+        });
+
+        // Wishlist Group Selection
+        const groupCards = document.querySelectorAll('.group-card');
+        groupCards.forEach(card => {
+            card.addEventListener('click', function() {
+                groupCards.forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                
+                // In a real implementation, you would filter wishlist items by group
+                const groupName = this.querySelector('.group-title').textContent;
+                alert(`Showing items from: ${groupName}`);
+            });
+        });
+
+        // Remove from Wishlist
+        const removeButtons = document.querySelectorAll('.wishlist-action-btn');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if(this.textContent === '❌') {
+                    const card = this.closest('.wishlist-card');
+                    card.style.opacity = '0';
+                    setTimeout(() => {
+                        card.remove();
+                        updateWishlistStats();
+                    }, 300);
+                }
+            });
+        });
+
+        // Move to Group
+        const moveButtons = document.querySelectorAll('.wishlist-action-btn');
+        moveButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if(this.textContent === '📁') {
+                    // In a real implementation, you would show a modal to select group
+                    alert('Select a group to move this item to');
+                }
+            });
+        });
+
+        // Add to Cart from Wishlist
+        const addToCartButtons = document.querySelectorAll('.card-btn-primary');
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.wishlist-card');
+                const productName = card.querySelector('.card-title').textContent;
+                
+                // Animation
+                this.innerHTML = '✅ Added!';
+                this.style.background = 'var(--success-color)';
+                
+                setTimeout(() => {
+                    this.innerHTML = '<span>🛒</span> Add to Cart';
+                    this.style.background = '';
+                }, 2000);
+                
+                // In a real implementation, you would add to cart
+                console.log(`Added to cart: ${productName}`);
+            });
+        });
+
+        // View Details
+        const viewDetailsButtons = document.querySelectorAll('.card-btn-secondary');
+        viewDetailsButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const card = this.closest('.wishlist-card');
+                const productName = card.querySelector('.card-title').textContent;
+                
+                // In a real implementation, you would navigate to product page
+                alert(`Viewing details for: ${productName}`);
+            });
+        });
+
+        // Sort and Filter Functionality
+        const sortSelect = document.querySelector('.sort-select');
+        const filterSelect = document.querySelector('.filter-select');
+        
+        sortSelect.addEventListener('change', function() {
+            // In a real implementation, you would sort the wishlist
+            console.log(`Sorted by: ${this.value}`);
+        });
+        
+        filterSelect.addEventListener('change', function() {
+            // In a real implementation, you would filter the wishlist
+            console.log(`Filtered by: ${this.value}`);
+        });
+
+        // Bulk Actions
+        const addAllToCartBtn = document.querySelector('.btn-primary');
+        const shareWishlistBtn = document.querySelector('.btn-secondary:nth-child(2)');
+        const clearAllBtn = document.querySelector('.btn-outline');
+        
+        addAllToCartBtn.addEventListener('click', function() {
+            // In a real implementation, you would add all items to cart
+            alert('All items added to cart!');
+        });
+        
+        shareWishlistBtn.addEventListener('click', function() {
+            // In a real implementation, you would share the wishlist
+            alert('Wishlist shared!');
+        });
+        
+        clearAllBtn.addEventListener('click', function() {
+            if(confirm('Are you sure you want to clear your entire wishlist?')) {
+                const wishlistGrid = document.querySelector('.wishlist-grid');
+                wishlistGrid.innerHTML = `
+                    <div class="wishlist-empty">
+                        <div class="empty-icon">❤️</div>
+                        <h2 class="empty-title">Your Wishlist is Empty</h2>
+                        <p class="empty-text">Start adding templates you love to your wishlist. They will appear here for easy access later.</p>
+                        <button class="btn btn-primary">Browse Templates</button>
+                    </div>
+                `;
+                updateWishlistStats();
+            }
+        });
+
+        // Update Wishlist Stats
+        function updateWishlistStats() {
+            const itemCount = document.querySelectorAll('.wishlist-card').length;
+            const statItem = document.querySelector('.stat-item:nth-child(1)');
+            statItem.innerHTML = `<span class="stat-icon">❤️</span><span>${itemCount} Items</span>`;
+            
+            if(itemCount === 0) {
+                document.querySelector('.wishlist-actions').style.display = 'none';
+                document.querySelector('.sort-filter').style.display = 'none';
+            }
+        }
+
+        // Recently Viewed - Add to Wishlist
+        const recentlyWishlistButtons = document.querySelectorAll('.product-action .card-btn-secondary');
+        recentlyWishlistButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if(this.textContent === '❤️') {
+                    this.innerHTML = '✅';
+                    this.style.background = 'var(--success-color)';
+                    
+                    setTimeout(() => {
+                        this.innerHTML = '❤️';
+                        this.style.background = '';
+                    }, 2000);
+                    
+                    // In a real implementation, you would add to wishlist
+                    const productName = this.closest('.product-card').querySelector('.product-title').textContent;
+                    console.log(`Added to wishlist: ${productName}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

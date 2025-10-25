@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Smart Space</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #e53935;
+            --secondary-color: #212121;
+            --background-color: #ffffff;
+            --text-color: #212121;
+            --accent-color: #e53935;
+            --footer-bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --success-color: #4CAF50;
+            --warning-color: #FF9800;
+        }
+
+        /* Theme Variables */
+        .theme-black-red {
+               --primary-color: #e53935;
+            --secondary-color: #212121;
+            --background-color: #f8f9fa;
+            --sidebar-bg: #212121;
+            --sidebar-text: #ffffff;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --accent-color: #e53935;
+        }
+
+        .theme-white-red {
+            --primary-color: #e53935;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #e53935;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-blue-white {
+            --primary-color: #2196F3;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #2196F3;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-black-golden {
+            --primary-color: #FFD700;
+            --secondary-color: #212121;
+            --background-color: #ffffff;
+            --text-color: #212121;
+            --accent-color: #FFD700;
+            --footer-bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-white-golden {
+            --primary-color: #FFD700;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #FFD700;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-white-purple {
+            --primary-color: #9C27B0;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #9C27B0;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-multicolor {
+            --primary-color: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #ff6b6b;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--nav-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .logo span {
+            color: var(--text-color);
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-actions button {
+            background: none;
+            border: none;
+            margin-left: 15px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        .language-selector {
+            position: relative;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 100;
+        }
+
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+
+        .language-option {
+            padding: 5px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .language-option:hover {
+            background: #f5f5f5;
+        }
+
+        .theme-selector {
+            position: relative;
+        }
+
+        .theme-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 100;
+            width: 180px;
+        }
+
+        .theme-selector:hover .theme-dropdown {
+            display: block;
+        }
+
+        .theme-option {
+            padding: 8px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .theme-option:hover {
+            background: #f5f5f5;
+        }
+
+        .theme-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .theme-black-red .theme-color {
+            background: linear-gradient(135deg, #212121 50%, #e53935 50%);
+        }
+
+        .theme-white-red .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #e53935 50%);
+        }
+
+        .theme-blue-white .theme-color {
+            background: linear-gradient(135deg, #2196F3 50%, #ffffff 50%);
+        }
+
+        .theme-black-golden .theme-color {
+            background: linear-gradient(135deg, #212121 50%, #FFD700 50%);
+        }
+
+        .theme-white-golden .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #FFD700 50%);
+        }
+
+        .theme-white-purple .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #9C27B0 50%);
+        }
+
+        .theme-multicolor .theme-color {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-menu a {
+            padding: 15px 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Checkout Section */
+        .checkout-section {
+            padding: 40px 0;
+        }
+
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 40px;
+        }
+
+        .checkout-steps {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .step {
+            padding: 15px 25px;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+
+        .step.active {
+            border-bottom-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .step.completed {
+            color: var(--success-color);
+        }
+
+        .step.completed:after {
+            content: '✓';
+            margin-left: 8px;
+            font-weight: bold;
+        }
+
+        .checkout-content {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            margin-bottom: 30px;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-option {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-option:hover {
+            border-color: var(--accent-color);
+        }
+
+        .payment-option.active {
+            border-color: var(--accent-color);
+            background: rgba(0,0,0,0.02);
+        }
+
+        .payment-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .payment-name {
+            font-weight: 500;
+        }
+
+        /* Payment Forms */
+        .payment-form {
+            display: none;
+        }
+
+        .payment-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .card-icons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 25px;
+            background: #f5f5f5;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Order Summary */
+        .order-summary {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .summary-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-items {
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .summary-totals {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total-row.final {
+            font-weight: bold;
+            font-size: 18px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .security-notice {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .security-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            color: var(--success-color);
+        }
+
+        .security-text {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .btn {
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 16px;
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: var(--text-color);
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Success Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            animation: modalIn 0.5s ease;
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .success-icon {
+            font-size: 60px;
+            color: var(--success-color);
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .modal-text {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .order-details {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+
+        /* Bottom Navigation (Mobile) */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .nav-item.active {
+            color: var(--accent-color);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* Chatbot */
+        .chatbot {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        .chatbot:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .chat-header {
+            padding: 15px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .bot-message {
+            background: #f0f0f0;
+            align-self: flex-start;
+        }
+
+        .user-message {
+            background: var(--accent-color);
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .chat-input button {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-summary {
+                position: static;
+            }
+            
+            .search-bar {
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                order: 1;
+            }
+            
+            .search-bar {
+                order: 3;
+                max-width: 100%;
+                margin: 15px 0 0;
+            }
+            
+            .header-actions {
+                order: 2;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .bottom-nav {
+                display: block;
+            }
+            
+            .checkout-steps {
+                flex-wrap: wrap;
+            }
+            
+            .step {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-options {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .checkout-content {
+                padding: 20px 15px;
+            }
+            
+            .order-summary {
+                padding: 20px 15px;
+            }
+            
+            .payment-options {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .chat-window {
+                width: calc(100% - 40px);
+                right: 20px;
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="theme-black-red">
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">Smart<span>Space</span></div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for templates...">
+                    <button>🔍</button>
+                </div>
+                <div class="header-actions">
+                    <div class="language-selector">
+                        <button>🌐 English</button>
+                        <div class="language-dropdown">
+                            <div class="language-option" data-lang="en">English</div>
+                            <div class="language-option" data-lang="ar">العربية</div>
+                            <div class="language-option" data-lang="fr">Français</div>
+                            <div class="language-option" data-lang="es">Español</div>
+                        </div>
+                    </div>
+                    <div class="theme-selector">
+                        <button>🎨 Theme</button>
+                        <div class="theme-dropdown">
+                            <div class="theme-option theme-black-red" data-theme="theme-black-red">
+                                <div class="theme-color"></div>
+                                Black & Red
+                            </div>
+                            <div class="theme-option theme-white-red" data-theme="theme-white-red">
+                                <div class="theme-color"></div>
+                                White & Red
+                            </div>
+                            <div class="theme-option theme-blue-white" data-theme="theme-blue-white">
+                                <div class="theme-color"></div>
+                                Blue & White
+                            </div>
+                            <div class="theme-option theme-black-golden" data-theme="theme-black-golden">
+                                <div class="theme-color"></div>
+                                Black & Golden
+                            </div>
+                            <div class="theme-option theme-white-golden" data-theme="theme-white-golden">
+                                <div class="theme-color"></div>
+                                White & Golden
+                            </div>
+                            <div class="theme-option theme-white-purple" data-theme="theme-white-purple">
+                                <div class="theme-color"></div>
+                                White & Purple
+                            </div>
+                            <div class="theme-option theme-multicolor" data-theme="theme-multicolor">
+                                <div class="theme-color"></div>
+                                Multicolor
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="window.location.href='login.html'">👤 Account</button>
+                    <button onclick="window.location.href='cart.html'">🛒 Cart (2)</button>
+                </div>
+            </div>
+          <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="product.html">Templates</a>
+                <a href="shop.html">Services</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Checkout Section -->
+    <section class="checkout-section">
+        <div class="container">
+            <div class="checkout-steps">
+                <div class="step completed">Cart</div>
+                <div class="step completed">Information</div>
+                <div class="step active">Payment</div>
+                <div class="step">Confirmation</div>
+            </div>
+
+            <div class="checkout-container">
+                <div class="checkout-content">
+                    <h2 class="section-title">Payment Method</h2>
+                    
+                    <div class="payment-methods">
+                        <div class="payment-options">
+                            <div class="payment-option active" data-method="card">
+                                <div class="payment-icon">💳</div>
+                                <div class="payment-name">Credit Card</div>
+                            </div>
+                            <div class="payment-option" data-method="paypal">
+                                <div class="payment-icon">🔵</div>
+                                <div class="payment-name">PayPal</div>
+                            </div>
+                            <div class="payment-option" data-method="bank">
+                                <div class="payment-icon">🏦</div>
+                                <div class="payment-name">Bank Transfer</div>
+                            </div>
+                            <div class="payment-option" data-method="crypto">
+                                <div class="payment-icon">₿</div>
+                                <div class="payment-name">Cryptocurrency</div>
+                            </div>
+                        </div>
+
+                        <!-- Credit Card Form -->
+                        <form class="payment-form active" id="card-form">
+                            <div class="form-group">
+                                <label class="form-label">Card Number</label>
+                                <input type="text" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19">
+                                <div class="card-icons">
+                                    <div class="card-icon">VISA</div>
+                                    <div class="card-icon">MC</div>
+                                    <div class="card-icon">AMEX</div>
+                                    <div class="card-icon">DISC</div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Expiry Date</label>
+                                    <input type="text" class="form-input" placeholder="MM/YY" maxlength="5">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">CVV</label>
+                                    <input type="text" class="form-input" placeholder="123" maxlength="3">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Cardholder Name</label>
+                                <input type="text" class="form-input" placeholder="John Doe">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    <input type="checkbox"> Save card for future purchases
+                                </label>
+                            </div>
+                        </form>
+
+                        <!-- PayPal Form -->
+                        <form class="payment-form" id="paypal-form">
+                            <div class="security-notice">
+                                <div class="security-icon">🔒</div>
+                                <div class="security-text">
+                                    You will be redirected to PayPal to complete your payment securely.
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary" id="paypal-btn">
+                                Continue to PayPal
+                            </button>
+                        </form>
+
+                        <!-- Bank Transfer Form -->
+                        <form class="payment-form" id="bank-form">
+                            <div class="form-group">
+                                <label class="form-label">Bank Name</label>
+                                <input type="text" class="form-input" placeholder="Enter bank name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Account Number</label>
+                                <input type="text" class="form-input" placeholder="Enter account number">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Routing Number</label>
+                                <input type="text" class="form-input" placeholder="Enter routing number">
+                            </div>
+                            <div class="security-notice">
+                                <div class="security-icon">⏱️</div>
+                                <div class="security-text">
+                                    Bank transfers may take 2-3 business days to process.
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- Cryptocurrency Form -->
+                        <form class="payment-form" id="crypto-form">
+                            <div class="form-group">
+                                <label class="form-label">Select Cryptocurrency</label>
+                                <select class="form-input">
+                                    <option>Bitcoin (BTC)</option>
+                                    <option>Ethereum (ETH)</option>
+                                    <option>Litecoin (LTC)</option>
+                                    <option>Bitcoin Cash (BCH)</option>
+                                </select>
+                            </div>
+                            <div class="security-notice">
+                                <div class="security-icon">🔗</div>
+                                <div class="security-text">
+                                    You will receive payment instructions after placing your order.
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Billing Address</label>
+                        <select class="form-input">
+                            <option>Same as shipping address</option>
+                            <option>Use different billing address</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-primary" id="complete-payment">Complete Payment</button>
+                    <a href="#" class="btn btn-secondary">Return to Cart</a>
+                </div>
+
+                <div class="order-summary">
+                    <h3 class="summary-title">Order Summary</h3>
+                    
+                    <div class="order-items">
+                        <div class="order-item">
+                            <div class="item-image">
+                                <span>📄</span>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-name">Business Pro Template</div>
+                                <div class="item-price">$49.99</div>
+                            </div>
+                        </div>
+                        
+                        <div class="order-item">
+                            <div class="item-image">
+                                <span>🎨</span>
+                            </div>
+                            <div class="item-details">
+                                <div class="item-name">Customization Service</div>
+                                <div class="item-price">$99.99</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-totals">
+                        <div class="total-row">
+                            <span>Subtotal</span>
+                            <span>$149.98</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Discount</span>
+                            <span>-$10.00</span>
+                        </div>
+                        <div class="total-row">
+                            <span>Tax</span>
+                            <span>$12.50</span>
+                        </div>
+                        <div class="total-row final">
+                            <span>Total</span>
+                            <span>$152.48</span>
+                        </div>
+                    </div>
+
+                    <div class="security-notice">
+                        <div class="security-icon">🔒</div>
+                        <div class="security-text">
+                            Your payment information is secure and encrypted.
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="place-order">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div class="modal" id="success-modal">
+        <div class="modal-content">
+            <div class="success-icon">✅</div>
+            <h2 class="modal-title">Payment Successful!</h2>
+            <p class="modal-text">
+                Thank you for your purchase. Your order has been confirmed and will be processed shortly.
+            </p>
+            
+            <div class="order-details">
+                <div class="detail-row">
+                    <span>Order ID:</span>
+                    <span>#SS2023-7892</span>
+                </div>
+                <div class="detail-row">
+                    <span>Total Paid:</span>
+                    <span>$152.48</span>
+                </div>
+                <div class="detail-row">
+                    <span>Payment Method:</span>
+                    <span>Credit Card</span>
+                </div>
+                <div class="detail-row">
+                    <span>Estimated Delivery:</span>
+                    <span>2-3 business days</span>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="continue-shopping">Continue Shopping</button>
+            <button class="btn btn-secondary" id="view-order">View Order Details</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Smart Space</h3>
+                    <p>Professional website templates and design services to elevate your online presence.</p>
+                    <div class="social-links">
+                        <a href="#">f</a>
+                        <a href="#">t</a>
+                        <a href="#">in</a>
+                        <a href="#">ig</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Templates</a></li>
+                        <li><a href="#">Customization</a></li>
+                        <li><a href="#">SEO Services</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Website Design</a></li>
+                        <li><a href="#">E-commerce Solutions</a></li>
+                        <li><a href="#">SEO Optimization</a></li>
+                        <li><a href="#">Content Management</a></li>
+                        <li><a href="#">Hosting Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>📧 info@smartspace.com</li>
+                        <li>📞 +1 (555) 123-4567</li>
+                        <li>📍 123 Design Street, Creative City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Smart Space. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <div class="nav-items">
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">📁</div>
+                <span>Templates</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <div class="nav-icon">🛒</div>
+                <span>Cart</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">👤</div>
+                <span>Account</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Chatbot -->
+    <div class="chatbot">💬</div>
+    <div class="chat-window">
+        <div class="chat-header">
+            <h3>Smart Space Assistant</h3>
+            <button class="chat-close">✕</button>
+        </div>
+        <div class="chat-messages">
+            <div class="message bot-message">
+                Need help with your payment? I'm here to assist!
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Type your message...">
+            <button>➤</button>
+        </div>
+    </div>
+
+    <script>
+        // Theme Switching
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const theme = this.getAttribute('data-theme');
+                document.body.className = theme;
+            });
+        });
+
+        // Language Switching
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                document.querySelector('.language-selector button').textContent = 
+                    this.textContent + (lang === 'ar' ? ' 🌐' : ' 🌐');
+                
+                // In a real implementation, you would change the content based on language
+                if(lang === 'ar') {
+                    document.body.dir = 'rtl';
+                    document.querySelector('.logo').innerHTML = 'Smart<span>Space</span>';
+                    document.querySelector('.search-bar input').placeholder = 'ابحث عن القوالب...';
+                    document.querySelector('.section-title').textContent = 'طريقة الدفع';
+                } else {
+                    document.body.dir = 'ltr';
+                    document.querySelector('.logo').innerHTML = 'Smart<span>Space</span>';
+                    document.querySelector('.search-bar input').placeholder = 'Search for templates...';
+                    document.querySelector('.section-title').textContent = 'Payment Method';
+                }
+            });
+        });
+
+        // Payment Method Switching
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const paymentForms = document.querySelectorAll('.payment-form');
+        
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const method = this.getAttribute('data-method');
+                
+                // Remove active class from all options and forms
+                paymentOptions.forEach(o => o.classList.remove('active'));
+                paymentForms.forEach(f => f.classList.remove('active'));
+                
+                // Add active class to clicked option and corresponding form
+                this.classList.add('active');
+                document.getElementById(method + '-form').classList.add('active');
+            });
+        });
+
+        // Card Number Formatting
+        const cardNumberInput = document.querySelector('input[placeholder="1234 5678 9012 3456"]');
+        if(cardNumberInput) {
+            cardNumberInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+                let matches = value.match(/\d{4,16}/g);
+                let match = matches && matches[0] || '';
+                let parts = [];
+                
+                for (let i = 0; i < match.length; i += 4) {
+                    parts.push(match.substring(i, i + 4));
+                }
+                
+                if (parts.length) {
+                    e.target.value = parts.join(' ');
+                } else {
+                    e.target.value = value;
+                }
+            });
+        }
+
+        // Expiry Date Formatting
+        const expiryInput = document.querySelector('input[placeholder="MM/YY"]');
+        if(expiryInput) {
+            expiryInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 2) {
+                    value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                }
+                e.target.value = value;
+            });
+        }
+
+        // Complete Payment
+        document.getElementById('complete-payment').addEventListener('click', function() {
+            // In a real implementation, you would process payment here
+            document.getElementById('success-modal').classList.add('active');
+        });
+
+        document.getElementById('place-order').addEventListener('click', function() {
+            // In a real implementation, you would process payment here
+            document.getElementById('success-modal').classList.add('active');
+        });
+
+        // Modal Actions
+        document.getElementById('continue-shopping').addEventListener('click', function() {
+            document.getElementById('success-modal').classList.remove('active');
+            // Redirect to homepage
+            window.location.href = 'index.html';
+        });
+
+        document.getElementById('view-order').addEventListener('click', function() {
+            document.getElementById('success-modal').classList.remove('active');
+            // Redirect to order details page
+            alert('Redirecting to order details...');
+        });
+
+        // PayPal Button
+        document.getElementById('paypal-btn').addEventListener('click', function() {
+            // In a real implementation, you would redirect to PayPal
+            alert('Redirecting to PayPal...');
+        });
+
+        // Chatbot Toggle
+        const chatbot = document.querySelector('.chatbot');
+        const chatWindow = document.querySelector('.chat-window');
+        const chatClose = document.querySelector('.chat-close');
+        
+        chatbot.addEventListener('click', function() {
+            chatWindow.style.display = 'flex';
+        });
+        
+        chatClose.addEventListener('click', function() {
+            chatWindow.style.display = 'none';
+        });
+
+        // Chat Functionality
+        const chatInput = document.querySelector('.chat-input input');
+        const chatSend = document.querySelector('.chat-input button');
+        const chatMessages = document.querySelector('.chat-messages');
+        
+        chatSend.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', function(e) {
+            if(e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if(message) {
+                // Add user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user-message';
+                userMessage.textContent = message;
+                chatMessages.appendChild(userMessage);
+                
+                // Clear input
+                chatInput.value = '';
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate bot response
+                setTimeout(function() {
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'message bot-message';
+                    botMessage.textContent = getBotResponse(message);
+                    chatMessages.appendChild(botMessage);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000);
+            }
+        }
+        
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            if(lowerMessage.includes('card') || lowerMessage.includes('credit') || lowerMessage.includes('debit')) {
+                return "We accept Visa, MasterCard, American Express, and Discover. Your payment is processed securely through our encrypted system.";
+            } else if(lowerMessage.includes('paypal')) {
+                return "You can pay with PayPal by selecting the PayPal option. You'll be redirected to PayPal to complete your payment.";
+            } else if(lowerMessage.includes('bank') || lowerMessage.includes('transfer')) {
+                return "Bank transfers are accepted and usually process within 2-3 business days. You'll receive bank details after order confirmation.";
+            } else if(lowerMessage.includes('crypto') || lowerMessage.includes('bitcoin')) {
+                return "We accept Bitcoin, Ethereum, Litecoin, and Bitcoin Cash. You'll receive payment instructions after placing your order.";
+            } else if(lowerMessage.includes('secure') || lowerMessage.includes('safe')) {
+                return "All payments are processed through secure, encrypted channels. We never store your full payment details on our servers.";
+            } else if(lowerMessage.includes('refund') || lowerMessage.includes('return')) {
+                return "We offer a 30-day money-back guarantee on all template purchases. Customization services may have different refund policies.";
+            } else {
+                return "I'm here to help with payment questions. What would you like to know about our payment options?";
+            }
+        }
+    </script>
+</body>
+</html>

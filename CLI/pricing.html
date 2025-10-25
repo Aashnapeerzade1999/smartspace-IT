@@ -1,0 +1,2027 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Smart Space</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #e53935;
+            --secondary-color: #212121;
+            --background-color: #ffffff;
+            --text-color: #212121;
+            --accent-color: #e53935;
+            --footer-bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --success-color: #4CAF50;
+            --warning-color: #FF9800;
+            --info-color: #2196F3;
+            --premium-color: #FFD700;
+        }
+
+        /* Theme Variables */
+        .theme-black-red {
+             --primary-color: #e53935;
+            --secondary-color: #212121;
+            --background-color: #f8f9fa;
+            --sidebar-bg: #212121;
+            --sidebar-text: #ffffff;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --accent-color: #e53935;
+        }
+
+        .theme-white-red {
+            --primary-color: #e53935;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #e53935;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-blue-white {
+            --primary-color: #2196F3;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #2196F3;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-black-golden {
+            --primary-color: #FFD700;
+            --secondary-color: #212121;
+            --background-color: #ffffff;
+            --text-color: #212121;
+            --accent-color: #FFD700;
+            --footer-bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-white-golden {
+            --primary-color: #FFD700;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #FFD700;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-white-purple {
+            --primary-color: #9C27B0;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #9C27B0;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        .theme-multicolor {
+            --primary-color: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --text-color: #212121;
+            --accent-color: #ff6b6b;
+            --footer-bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--nav-bg);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .logo span {
+            color: var(--text-color);
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-actions button {
+            background: none;
+            border: none;
+            margin-left: 15px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        .language-selector {
+            position: relative;
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 100;
+        }
+
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+
+        .language-option {
+            padding: 5px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .language-option:hover {
+            background: #f5f5f5;
+        }
+
+        .theme-selector {
+            position: relative;
+        }
+
+        .theme-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 100;
+            width: 180px;
+        }
+
+        .theme-selector:hover .theme-dropdown {
+            display: block;
+        }
+
+        .theme-option {
+            padding: 8px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .theme-option:hover {
+            background: #f5f5f5;
+        }
+
+        .theme-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .theme-black-red .theme-color {
+            background: linear-gradient(135deg, #212121 50%, #e53935 50%);
+        }
+
+        .theme-white-red .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #e53935 50%);
+        }
+
+        .theme-blue-white .theme-color {
+            background: linear-gradient(135deg, #2196F3 50%, #ffffff 50%);
+        }
+
+        .theme-black-golden .theme-color {
+            background: linear-gradient(135deg, #212121 50%, #FFD700 50%);
+        }
+
+        .theme-white-golden .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #FFD700 50%);
+        }
+
+        .theme-white-purple .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #9C27B0 50%);
+        }
+
+        .theme-multicolor .theme-color {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #eee;
+        }
+
+        .nav-menu a {
+            padding: 15px 20px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Pricing Hero */
+        .pricing-hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--accent-color) 0%, rgba(0,0,0,0.1) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .pricing-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .pricing-hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        /* Pricing Tabs */
+        .pricing-tabs {
+            padding: 40px 0;
+            background: var(--background-color);
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .pricing-tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .pricing-tab.active {
+            border-bottom-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* Pricing Plans */
+        .pricing-plans {
+            padding: 40px 0;
+        }
+
+        .plan-category {
+            margin-bottom: 60px;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .category-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .category-title {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .category-description {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .plan-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .plan-card.popular {
+            border-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        .plan-card.popular:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .plan-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .plan-name {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .plan-description {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .plan-price {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .price-amount {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--accent-color);
+            line-height: 1;
+        }
+
+        .price-period {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .price-note {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .plan-features {
+            margin-bottom: 30px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-item {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-item:not(:last-child) {
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .feature-icon {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .feature-included .feature-icon {
+            color: var(--success-color);
+        }
+
+        .feature-excluded .feature-icon {
+            color: #ccc;
+        }
+
+        .feature-excluded {
+            color: #999;
+            text-decoration: line-through;
+        }
+
+        .plan-actions {
+            text-align: center;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            padding: 60px 0;
+            background: var(--footer-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: var(--text-color);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .comparison-table th {
+            background: var(--accent-color);
+            color: white;
+            font-weight: 500;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .feature-name {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .feature-check {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .feature-cross {
+            color: #ccc;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 60px 0;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--accent-color) 0%, rgba(0,0,0,0.1) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--accent-color);
+        }
+
+        .btn-white:hover {
+            background: #f5f5f5;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+
+        /* Bottom Navigation (Mobile) */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .nav-item.active {
+            color: var(--accent-color);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .search-bar {
+                max-width: 300px;
+            }
+            
+            .plans-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            
+            .plan-card.popular {
+                transform: scale(1);
+            }
+            
+            .plan-card.popular:hover {
+                transform: translateY(-5px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-top {
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                order: 1;
+            }
+            
+            .search-bar {
+                order: 3;
+                max-width: 100%;
+                margin: 15px 0 0;
+            }
+            
+            .header-actions {
+                order: 2;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .bottom-nav {
+                display: block;
+            }
+            
+            .pricing-hero h1 {
+                font-size: 36px;
+            }
+            
+            .tabs-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-tab {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-title {
+                font-size: 24px;
+            }
+            
+            .price-amount {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body class="theme-black-red">
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">Smart<span>Space</span></div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for templates...">
+                    <button>🔍</button>
+                </div>
+                <div class="header-actions">
+                    <div class="language-selector">
+                        <button>🌐 English</button>
+                        <div class="language-dropdown">
+                            <div class="language-option" data-lang="en">English</div>
+                            <div class="language-option" data-lang="ar">العربية</div>
+                            <div class="language-option" data-lang="fr">Français</div>
+                            <div class="language-option" data-lang="es">Español</div>
+                        </div>
+                    </div>
+                    <div class="theme-selector">
+                        <button>🎨 Theme</button>
+                        <div class="theme-dropdown">
+                            <div class="theme-option theme-black-red" data-theme="theme-black-red">
+                                <div class="theme-color"></div>
+                                Black & Red
+                            </div>
+                            <div class="theme-option theme-white-red" data-theme="theme-white-red">
+                                <div class="theme-color"></div>
+                                White & Red
+                            </div>
+                            <div class="theme-option theme-blue-white" data-theme="theme-blue-white">
+                                <div class="theme-color"></div>
+                                Blue & White
+                            </div>
+                            <div class="theme-option theme-black-golden" data-theme="theme-black-golden">
+                                <div class="theme-color"></div>
+                                Black & Golden
+                            </div>
+                            <div class="theme-option theme-white-golden" data-theme="theme-white-golden">
+                                <div class="theme-color"></div>
+                                White & Golden
+                            </div>
+                            <div class="theme-option theme-white-purple" data-theme="theme-white-purple">
+                                <div class="theme-color"></div>
+                                White & Purple
+                            </div>
+                            <div class="theme-option theme-multicolor" data-theme="theme-multicolor">
+                                <div class="theme-color"></div>
+                                Multicolor
+                            </div>
+                        </div>
+                    </div>
+                    <button onclick="window.location.href='login.html'">👤 Account</button>
+                    <button onclick="window.location.href='cart.html'">🛒 Cart (3)</button>
+                </div>
+            </div>
+          <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="product.html">Templates</a>
+                <a href="shop.html">Services</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Pricing Hero -->
+    <section class="pricing-hero">
+        <div class="container">
+            <h1>Simple, Transparent Pricing</h1>
+            <p>Choose the perfect plan for your business needs. All plans include our premium support and regular updates.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Tabs -->
+    <section class="pricing-tabs">
+        <div class="container">
+            <div class="tabs-container">
+                <div class="pricing-tab active" data-tab="website">Website Templates</div>
+                <div class="pricing-tab" data-tab="ecommerce">E-commerce Solutions</div>
+                <div class="pricing-tab" data-tab="hosting">Hosting Services</div>
+                <div class="pricing-tab" data-tab="seo">SEO Services</div>
+                <div class="pricing-tab" data-tab="admin">Admin Panels</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Website Templates Pricing -->
+    <section class="pricing-plans" id="website-tab">
+        <div class="container">
+            <div class="plan-category">
+                <div class="category-header">
+                    <div class="category-icon">🌐</div>
+                    <h2 class="category-title">Website Templates</h2>
+                    <p class="category-description">Choose from our collection of professionally designed website templates for every industry</p>
+                </div>
+
+                <div class="plans-grid">
+                    <!-- Static Website Plan -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Static Website</h3>
+                            <p class="plan-description">Basic website with fixed content</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$49</div>
+                            <div class="price-period">one-time payment</div>
+                            <div class="price-note">No recurring fees</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>5 Static Pages</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Responsive Design</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Contact Form</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Basic SEO</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>6 Months Support</span>
+                                </li>
+                                <li class="feature-item feature-excluded">
+                                    <span class="feature-icon">✗</span>
+                                    <span>Content Management</span>
+                                </li>
+                                <li class="feature-item feature-excluded">
+                                    <span class="feature-icon">✗</span>
+                                    <span>E-commerce Features</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Website Plan -->
+                    <div class="plan-card popular">
+                        <div class="plan-badge">MOST POPULAR</div>
+                        <div class="plan-header">
+                            <h3 class="plan-name">Dynamic Website</h3>
+                            <p class="plan-description">Advanced website with CMS</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$129</div>
+                            <div class="price-period">one-time payment</div>
+                            <div class="price-note">+ $19/month for hosting</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Unlimited Pages</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Content Management System</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>User Registration</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced SEO</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>1 Year Support</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Blog System</span>
+                                </li>
+                                <li class="feature-item feature-excluded">
+                                    <span class="feature-icon">✗</span>
+                                    <span>E-commerce Features</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise Website Plan -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Enterprise Website</h3>
+                            <p class="plan-description">Custom solution for large businesses</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$499</div>
+                            <div class="price-period">one-time payment</div>
+                            <div class="price-note">Custom pricing available</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Custom Design</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced CMS</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Multi-language Support</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Premium SEO</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Lifetime Support</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Custom Features</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Priority Support</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Contact Sales</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-commerce Solutions -->
+            <div class="plan-category">
+                <div class="category-header">
+                    <div class="category-icon">🛒</div>
+                    <h2 class="category-title">E-commerce Solutions</h2>
+                    <p class="category-description">Complete online store solutions with payment integration and inventory management</p>
+                </div>
+
+                <div class="plans-grid">
+                    <!-- Basic E-commerce -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Starter Store</h3>
+                            <p class="plan-description">Perfect for small businesses</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$199</div>
+                            <div class="price-period">one-time payment</div>
+                            <div class="price-note">+ $29/month for hosting</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Up to 50 Products</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Payment Gateway Integration</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Basic Inventory Management</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Order Management</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>6 Months Support</span>
+                                </li>
+                                <li class="feature-item feature-excluded">
+                                    <span class="feature-icon">✗</span>
+                                    <span>Multi-vendor Support</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+
+                    <!-- Professional E-commerce -->
+                    <div class="plan-card popular">
+                        <div class="plan-badge">RECOMMENDED</div>
+                        <div class="plan-header">
+                            <h3 class="plan-name">Professional Store</h3>
+                            <p class="plan-description">Ideal for growing businesses</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$399</div>
+                            <div class="price-period">one-time payment</div>
+                            <div class="price-note">+ $49/month for hosting</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Unlimited Products</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Multiple Payment Gateways</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced Inventory Management</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Customer Accounts</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>1 Year Support</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Sales Analytics</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise E-commerce -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Enterprise Marketplace</h3>
+                            <p class="plan-description">Multi-vendor marketplace solution</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$999</div>
+                            <div class="price-period">one-time payment</div>
+                            <div class="price-note">Custom pricing available</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Multi-vendor System</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Vendor Commission System</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced Analytics</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Custom Payment Solutions</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Lifetime Support</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>White-label Solution</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Contact Sales</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hosting Services -->
+            <div class="plan-category">
+                <div class="category-header">
+                    <div class="category-icon">🚀</div>
+                    <h2 class="category-title">Hosting Services</h2>
+                    <p class="category-description">Reliable hosting solutions with 99.9% uptime guarantee</p>
+                </div>
+
+                <div class="plans-grid">
+                    <!-- Basic Hosting -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Starter Hosting</h3>
+                            <p class="plan-description">Perfect for small websites</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$9.99</div>
+                            <div class="price-period">per month</div>
+                            <div class="price-note">$7.99/month when paid yearly</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>10 GB Storage</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>100 GB Bandwidth</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>1 Website</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Free SSL Certificate</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Basic Security</span>
+                                </li>
+                                <li class="feature-item feature-excluded">
+                                    <span class="feature-icon">✗</span>
+                                    <span>Daily Backups</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+
+                    <!-- Business Hosting -->
+                    <div class="plan-card popular">
+                        <div class="plan-badge">POPULAR</div>
+                        <div class="plan-header">
+                            <h3 class="plan-name">Business Hosting</h3>
+                            <p class="plan-description">Ideal for growing businesses</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$19.99</div>
+                            <div class="price-period">per month</div>
+                            <div class="price-note">$15.99/month when paid yearly</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>50 GB Storage</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Unlimited Bandwidth</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>5 Websites</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Free SSL Certificate</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced Security</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Daily Backups</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise Hosting -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Enterprise Hosting</h3>
+                            <p class="plan-description">For high-traffic websites</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$49.99</div>
+                            <div class="price-period">per month</div>
+                            <div class="price-note">$39.99/month when paid yearly</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>200 GB Storage</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Unlimited Bandwidth</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Unlimited Websites</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Free SSL Certificate</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Premium Security</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Real-time Backups</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEO Services -->
+            <div class="plan-category">
+                <div class="category-header">
+                    <div class="category-icon">🔍</div>
+                    <h2 class="category-title">SEO Services</h2>
+                    <p class="category-description">Improve your search engine rankings and drive more organic traffic</p>
+                </div>
+
+                <div class="plans-grid">
+                    <!-- Basic SEO -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Starter SEO</h3>
+                            <p class="plan-description">Essential SEO for new websites</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$299</div>
+                            <div class="price-period">per month</div>
+                            <div class="price-note">3-month minimum</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Keyword Research</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>On-page Optimization</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Technical SEO Audit</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Monthly Performance Report</span>
+                                </li>
+                                <li class="feature-item feature-excluded">
+                                    <span class="feature-icon">✗</span>
+                                    <span>Content Creation</span>
+                                </li>
+                                <li class="feature-item feature-excluded">
+                                    <span class="feature-icon">✗</span>
+                                    <span>Link Building</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+
+                    <!-- Professional SEO -->
+                    <div class="plan-card popular">
+                        <div class="plan-badge">RECOMMENDED</div>
+                        <div class="plan-header">
+                            <h3 class="plan-name">Professional SEO</h3>
+                            <p class="plan-description">Comprehensive SEO strategy</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$599</div>
+                            <div class="price-period">per month</div>
+                            <div class="price-note">6-month minimum</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced Keyword Research</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Complete On-page Optimization</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Technical SEO Implementation</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Weekly Performance Reports</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Content Strategy</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Basic Link Building</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise SEO -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Enterprise SEO</h3>
+                            <p class="plan-description">Full-service SEO management</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$1,199</div>
+                            <div class="price-period">per month</div>
+                            <div class="price-note">12-month commitment</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Comprehensive SEO Strategy</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Dedicated SEO Specialist</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced Technical SEO</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Daily Monitoring</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Content Creation & Optimization</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced Link Building</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Contact Sales</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Panels -->
+            <div class="plan-category">
+                <div class="category-header">
+                    <div class="category-icon">⚙️</div>
+                    <h2 class="category-title">Admin Panels</h2>
+                    <p class="category-description">Powerful admin panels for managing your website and business operations</p>
+                </div>
+
+                <div class="plans-grid">
+                    <!-- Basic Admin -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Basic Admin</h3>
+                            <p class="plan-description">Essential admin features</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$99</div>
+                            <div class="price-period">one-time payment</div>
+                            <div class="price-note">+ $9/month for updates</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>User Management</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Content Management</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Basic Analytics</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Role-based Access</span>
+                                </li>
+                                <li class="feature-item feature-excluded">
+                                    <span class="feature-icon">✗</span>
+                                    <span>Multi-admin Support</span>
+                                </li>
+                                <li class="feature-item feature-excluded">
+                                    <span class="feature-icon">✗</span>
+                                    <span>Advanced Reporting</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+
+                    <!-- Professional Admin -->
+                    <div class="plan-card popular">
+                        <div class="plan-badge">POPULAR</div>
+                        <div class="plan-header">
+                            <h3 class="plan-name">Professional Admin</h3>
+                            <p class="plan-description">Advanced admin capabilities</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$199</div>
+                            <div class="price-period">one-time payment</div>
+                            <div class="price-note">+ $19/month for updates</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced User Management</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Content & Media Management</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced Analytics</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Multi-admin Support</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Custom Reporting</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>API Access</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Get Started</button>
+                        </div>
+                    </div>
+
+                    <!-- Enterprise Admin -->
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">Enterprise Admin</h3>
+                            <p class="plan-description">Complete admin solution</p>
+                        </div>
+                        <div class="plan-price">
+                            <div class="price-amount">$499</div>
+                            <div class="price-period">one-time payment</div>
+                            <div class="price-note">Custom pricing available</div>
+                        </div>
+                        <div class="plan-features">
+                            <ul class="feature-list">
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Unlimited User Management</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced Content Management</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Real-time Analytics</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Unlimited Sub-admins</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>Advanced Reporting</span>
+                                </li>
+                                <li class="feature-item feature-included">
+                                    <span class="feature-icon">✓</span>
+                                    <span>White-label Solution</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="plan-actions">
+                            <button class="btn btn-primary">Contact Sales</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison-section">
+        <div class="container">
+            <h2 class="section-title">Compare All Plans</h2>
+            <div class="comparison-table-container">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Features</th>
+                            <th>Starter</th>
+                            <th>Professional</th>
+                            <th>Enterprise</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="feature-name">Number of Pages</td>
+                            <td>5</td>
+                            <td>Unlimited</td>
+                            <td>Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Content Management</td>
+                            <td class="feature-cross">✗</td>
+                            <td class="feature-check">✓</td>
+                            <td class="feature-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">E-commerce Features</td>
+                            <td class="feature-cross">✗</td>
+                            <td class="feature-check">✓</td>
+                            <td class="feature-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">User Management</td>
+                            <td class="feature-cross">✗</td>
+                            <td class="feature-check">✓</td>
+                            <td class="feature-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">SEO Optimization</td>
+                            <td class="feature-check">✓</td>
+                            <td class="feature-check">✓</td>
+                            <td class="feature-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Support Duration</td>
+                            <td>6 Months</td>
+                            <td>1 Year</td>
+                            <td>Lifetime</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Customization</td>
+                            <td class="feature-cross">✗</td>
+                            <td class="feature-check">✓</td>
+                            <td class="feature-check">✓</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">White-label</td>
+                            <td class="feature-cross">✗</td>
+                            <td class="feature-cross">✗</td>
+                            <td class="feature-check">✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What's included in the one-time payment?
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The one-time payment includes the template or solution license, installation, basic setup, and the specified support period. Hosting, domain, and additional services are billed separately.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I upgrade my plan later?
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can upgrade your plan at any time. We'll apply a prorated credit for your current plan toward the upgrade cost.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you offer custom development?
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer custom development services for unique requirements. Contact our sales team to discuss your project needs and get a custom quote.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What payment methods do you accept?
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We accept all major credit cards, PayPal, bank transfers, and various regional payment methods including UPI, mobile banking, and digital wallets.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is there a money-back guarantee?
+                        <span class="faq-toggle">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer a 30-day money-back guarantee on all our templates and solutions. If you're not satisfied, we'll refund your payment.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Get Started?</h2>
+            <p class="cta-text">Choose the perfect plan for your business and take your online presence to the next level.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-white">View All Templates</button>
+                <button class="btn btn-outline" style="color: white; border-color: white;">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Smart Space</h3>
+                    <p>Professional website templates and design services to elevate your online presence.</p>
+                    <div class="social-links">
+                        <a href="#">f</a>
+                        <a href="#">t</a>
+                        <a href="#">in</a>
+                        <a href="#">ig</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Templates</a></li>
+                        <li><a href="#">Customization</a></li>
+                        <li><a href="#">SEO Services</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Website Design</a></li>
+                        <li><a href="#">E-commerce Solutions</a></li>
+                        <li><a href="#">SEO Optimization</a></li>
+                        <li><a href="#">Content Management</a></li>
+                        <li><a href="#">Hosting Services</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li>📧 info@smartspace.com</li>
+                        <li>📞 +1 (555) 123-4567</li>
+                        <li>📍 123 Design Street, Creative City</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Smart Space. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="bottom-nav">
+        <div class="nav-items">
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🏠</div>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">📁</div>
+                <span>Templates</span>
+            </a>
+            <a href="#" class="nav-item">
+                <div class="nav-icon">🛒</div>
+                <span>Cart</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <div class="nav-icon">💰</div>
+                <span>Pricing</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        // Theme Switching
+        document.querySelectorAll('.theme-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const theme = this.getAttribute('data-theme');
+                document.body.className = theme;
+            });
+        });
+
+        // Language Switching
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                document.querySelector('.language-selector button').textContent = 
+                    this.textContent + (lang === 'ar' ? ' 🌐' : ' 🌐');
+                
+                if(lang === 'ar') {
+                    document.body.dir = 'rtl';
+                    document.querySelector('.logo').innerHTML = 'Smart<span>Space</span>';
+                    document.querySelector('.search-bar input').placeholder = 'ابحث عن القوالب...';
+                } else {
+                    document.body.dir = 'ltr';
+                    document.querySelector('.logo').innerHTML = 'Smart<span>Space</span>';
+                    document.querySelector('.search-bar input').placeholder = 'Search for templates...';
+                }
+            });
+        });
+
+        // Pricing Tabs
+        const pricingTabs = document.querySelectorAll('.pricing-tab');
+        
+        pricingTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Remove active class from all tabs
+                pricingTabs.forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Scroll to the corresponding section
+                document.getElementById(tabId + '-tab').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // FAQ Toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', function() {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Plan Card Hover Effects
+        const planCards = document.querySelectorAll('.plan-card');
+        planCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                if(!this.classList.contains('popular')) {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.15)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                if(!this.classList.contains('popular')) {
+                    this.style.transform = '';
+                    this.style.boxShadow = '';
+                }
+            });
+        });
+
+        // Get Started Buttons
+        const getStartedButtons = document.querySelectorAll('.btn-primary');
+        getStartedButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const planName = this.closest('.plan-card').querySelector('.plan-name').textContent;
+                const planPrice = this.closest('.plan-card').querySelector('.price-amount').textContent;
+                
+                // In a real implementation, you would redirect to checkout
+                alert(`You selected: ${planName} for ${planPrice}`);
+            });
+        });
+
+        // Contact Sales Buttons
+        const contactButtons = document.querySelectorAll('.btn-primary:contains("Contact Sales")');
+        contactButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // In a real implementation, you would open a contact form
+                alert('Redirecting to contact form...');
+            });
+        });
+
+        // CTA Buttons
+        const ctaButtons = document.querySelectorAll('.cta-buttons .btn');
+        ctaButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if(this.textContent.includes('View All Templates')) {
+                    // Redirect to templates page
+                    window.location.href = 'templates.html';
+                } else {
+                    // Open contact modal
+                    alert('Opening contact form...');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

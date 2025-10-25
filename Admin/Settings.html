@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Control - Smart Space</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #e53935;
+            --secondary-color: #212121;
+            --background-color: #f8f9fa;
+            --sidebar-bg: #212121;
+            --sidebar-text: #ffffff;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --accent-color: #e53935;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --success-color: #4CAF50;
+            --warning-color: #FF9800;
+            --info-color: #2196F3;
+            --danger-color: #f44336;
+        }
+
+        /* Theme Variables */
+        .theme-black-red {
+            --primary-color: #e53935;
+            --secondary-color: #212121;
+            --background-color: #f8f9fa;
+            --sidebar-bg: #212121;
+            --sidebar-text: #ffffff;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --accent-color: #e53935;
+        }
+
+        .theme-white-red {
+            --primary-color: #e53935;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --sidebar-bg: #ffffff;
+            --sidebar-text: #212121;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --accent-color: #e53935;
+        }
+
+        .theme-blue-white {
+            --primary-color: #2196F3;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --sidebar-bg: #ffffff;
+            --sidebar-text: #212121;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --accent-color: #2196F3;
+        }
+
+        .theme-black-golden {
+            --primary-color: #FFD700;
+            --secondary-color: #212121;
+            --background-color: #f8f9fa;
+            --sidebar-bg: #212121;
+            --sidebar-text: #ffffff;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --accent-color: #FFD700;
+        }
+
+        .theme-white-golden {
+            --primary-color: #FFD700;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --sidebar-bg: #ffffff;
+            --sidebar-text: #212121;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --accent-color: #FFD700;
+        }
+
+        .theme-white-purple {
+            --primary-color: #9C27B0;
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --sidebar-bg: #ffffff;
+            --sidebar-text: #212121;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --accent-color: #9C27B0;
+        }
+
+        .theme-multicolor {
+            --primary-color: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            --secondary-color: #ffffff;
+            --background-color: #f5f5f5;
+            --sidebar-bg: #ffffff;
+            --sidebar-text: #212121;
+            --card-bg: #ffffff;
+            --text-color: #212121;
+            --accent-color: #ff6b6b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 250px;
+            background: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            transition: all 0.3s;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--sidebar-text);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--sidebar-text);
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .sidebar-menu {
+            padding: 15px 0;
+        }
+
+        .menu-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background: rgba(255,255,255,0.1);
+            border-left-color: var(--accent-color);
+        }
+
+        .menu-item i {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .menu-text {
+            transition: opacity 0.3s;
+        }
+
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            transition: margin-left 0.3s;
+            padding: 20px;
+        }
+
+        .main-content.expanded {
+            margin-left: 70px;
+        }
+
+        /* Top Header */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .page-title h1 {
+            font-size: 24px;
+            color: var(--text-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            width: 250px;
+            outline: none;
+            padding-left: 40px;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        .theme-selector, .language-selector {
+            position: relative;
+        }
+
+        .theme-btn, .language-btn {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .theme-dropdown, .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            box-shadow: var(--shadow);
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            z-index: 100;
+            width: 180px;
+        }
+
+        .theme-selector:hover .theme-dropdown,
+        .language-selector:hover .language-dropdown {
+            display: block;
+        }
+
+        .theme-option, .language-option {
+            padding: 8px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        .theme-option:hover, .language-option:hover {
+            background: #f5f5f5;
+        }
+
+        .theme-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .theme-black-red .theme-color {
+            background: linear-gradient(135deg, #212121 50%, #e53935 50%);
+        }
+
+        .theme-white-red .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #e53935 50%);
+        }
+
+        .theme-blue-white .theme-color {
+            background: linear-gradient(135deg, #2196F3 50%, #ffffff 50%);
+        }
+
+        .theme-black-golden .theme-color {
+            background: linear-gradient(135deg, #212121 50%, #FFD700 50%);
+        }
+
+        .theme-white-golden .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #FFD700 50%);
+        }
+
+        .theme-white-purple .theme-color {
+            background: linear-gradient(135deg, #ffffff 50%, #9C27B0 50%);
+        }
+
+        .theme-multicolor .theme-color {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .notification-bell {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Settings Container */
+        .settings-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Settings Sidebar */
+        .settings-sidebar {
+            width: 250px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 20px 0;
+            height: fit-content;
+        }
+
+        .settings-category {
+            margin-bottom: 10px;
+        }
+
+        .category-title {
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .settings-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .settings-item:hover, .settings-item.active {
+            background: #f5f5f5;
+            border-left-color: var(--accent-color);
+        }
+
+        .settings-item i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        .settings-item.active i {
+            color: var(--accent-color);
+        }
+
+        /* Settings Content */
+        .settings-content {
+            flex: 1;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+
+        .settings-section {
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .section-description {
+            color: #666;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(229, 57, 53, 0.1);
+        }
+
+        .form-text {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Switch Toggle */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Checkbox and Radio */
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-item input, .radio-item input {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        .btn-info {
+            background: var(--info-color);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: var(--text-color);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        /* User List */
+        .user-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            transition: all 0.3s;
+        }
+
+        .user-item:hover {
+            background: #f9f9f9;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .user-email {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .user-role {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .role-admin {
+            background: #e8f4fd;
+            color: #0c5460;
+        }
+
+        .role-user {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .role-moderator {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Permission Table */
+        .permission-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .permission-table th,
+        .permission-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .permission-table th {
+            background: #f9f9f9;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .permission-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 3000;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 5px;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: toastIn 0.3s ease;
+            max-width: 350px;
+        }
+
+        @keyframes toastIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .toast.success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .toast.error {
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .toast.warning {
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .toast.info {
+            border-left: 4px solid var(--info-color);
+        }
+
+        .toast-icon {
+            font-size: 20px;
+        }
+
+        .toast.success .toast-icon {
+            color: var(--success-color);
+        }
+
+        .toast.error .toast-icon {
+            color: var(--danger-color);
+        }
+
+        .toast.warning .toast-icon {
+            color: var(--warning-color);
+        }
+
+        .toast.info .toast-icon {
+            color: var(--info-color);
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .toast-message {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        /* Tab View */
+        .tab-view {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            border-bottom-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* Bottom Navigation (Mobile) */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--sidebar-bg);
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-items {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            color: var(--sidebar-text);
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: var(--accent-color);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        /* Chatbot */
+        .chatbot {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.3s;
+        }
+
+        .chatbot:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .sidebar .menu-text {
+                opacity: 0;
+                width: 0;
+                overflow: hidden;
+            }
+            
+            .main-content {
+                margin-left: 70px;
+            }
+            
+            .search-bar input {
+                width: 200px;
+            }
+
+            .settings-container {
+                flex-direction: column;
+            }
+
+            .settings-sidebar {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.mobile-open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .top-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .search-bar input {
+                width: 100%;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .bottom-nav {
+                display: block;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-actions {
+                flex-wrap: wrap;
+            }
+            
+            .theme-selector, .language-selector {
+                display: none;
+            }
+            
+            .settings-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="theme-black-red">
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-rocket"></i>
+                    <span class="logo-text">Smart<span>Space</span></span>
+                </div>
+                <button class="toggle-btn" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu-item">
+                    <i class="fas fa-th-large"></i>
+                    <span class="menu-text">Dashboard</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="menu-text">Orders</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-box"></i>
+                    <span class="menu-text">Products</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-users"></i>
+                    <span class="menu-text">Customers</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="menu-text">Analytics</span>
+                </div>
+                <div class="menu-item active">
+                    <i class="fas fa-cog"></i>
+                    <span class="menu-text">Settings</span>
+                </div>
+                <div class="menu-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="menu-text">Logout</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content" id="mainContent">
+            <!-- Top Header -->
+            <div class="top-header">
+                <div class="page-title">
+                    <h1>Settings Control Panel</h1>
+                    <p>Manage system settings, users, and configurations</p>
+                </div>
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search settings...">
+                    </div>
+                    <div class="theme-selector">
+                        <button class="theme-btn">
+                            <i class="fas fa-palette"></i> Theme
+                        </button>
+                        <div class="theme-dropdown">
+                            <div class="theme-option theme-black-red" data-theme="theme-black-red">
+                                <div class="theme-color"></div>
+                                Black & Red
+                            </div>
+                            <div class="theme-option theme-white-red" data-theme="theme-white-red">
+                                <div class="theme-color"></div>
+                                White & Red
+                            </div>
+                            <div class="theme-option theme-blue-white" data-theme="theme-blue-white">
+                                <div class="theme-color"></div>
+                                Blue & White
+                            </div>
+                            <div class="theme-option theme-black-golden" data-theme="theme-black-golden">
+                                <div class="theme-color"></div>
+                                Black & Golden
+                            </div>
+                            <div class="theme-option theme-white-golden" data-theme="theme-white-golden">
+                                <div class="theme-color"></div>
+                                White & Golden
+                            </div>
+                            <div class="theme-option theme-white-purple" data-theme="theme-white-purple">
+                                <div class="theme-color"></div>
+                                White & Purple
+                            </div>
+                            <div class="theme-option theme-multicolor" data-theme="theme-multicolor">
+                                <div class="theme-color"></div>
+                                Multicolor
+                            </div>
+                        </div>
+                    </div>
+                    <div class="language-selector">
+                        <button class="language-btn">
+                            <i class="fas fa-globe"></i> EN
+                        </button>
+                        <div class="language-dropdown">
+                            <div class="language-option" data-lang="en">English</div>
+                            <div class="language-option" data-lang="ar">العربية</div>
+                            <div class="language-option" data-lang="fr">Français</div>
+                            <div class="language-option" data-lang="es">Español</div>
+                        </div>
+                    </div>
+                    <div class="notification-bell">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">7</span>
+                    </div>
+                    <div class="user-profile">
+                        <div class="avatar">AD</div>
+                        <span>Admin User</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab View -->
+            <div class="tab-view">
+                <div class="tab active" data-tab="admin">Admin Settings</div>
+                <div class="tab" data-tab="client">Client Settings</div>
+            </div>
+
+            <!-- Settings Container -->
+            <div class="settings-container">
+                <!-- Settings Sidebar -->
+                <div class="settings-sidebar">
+                    <!-- Admin Settings -->
+                    <div class="settings-category admin-settings">
+                        <div class="category-title">Administration</div>
+                        <div class="settings-item active" data-section="users">
+                            <i class="fas fa-users"></i>
+                            <span>User Management</span>
+                        </div>
+                        <div class="settings-item" data-section="roles">
+                            <i class="fas fa-user-shield"></i>
+                            <span>Roles & Permissions</span>
+                        </div>
+                        <div class="settings-item" data-section="system">
+                            <i class="fas fa-cogs"></i>
+                            <span>System Configuration</span>
+                        </div>
+                        <div class="settings-item" data-section="security">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Security Settings</span>
+                        </div>
+                    </div>
+
+                    <!-- Client Settings -->
+                    <div class="settings-category client-settings">
+                        <div class="category-title">Client Settings</div>
+                        <div class="settings-item" data-section="profile">
+                            <i class="fas fa-user"></i>
+                            <span>Profile Settings</span>
+                        </div>
+                        <div class="settings-item" data-section="preferences">
+                            <i class="fas fa-sliders-h"></i>
+                            <span>Preferences</span>
+                        </div>
+                        <div class="settings-item" data-section="notifications">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                        </div>
+                        <div class="settings-item" data-section="privacy">
+                            <i class="fas fa-lock"></i>
+                            <span>Privacy & Security</span>
+                        </div>
+                    </div>
+
+                    <!-- General Settings -->
+                    <div class="settings-category">
+                        <div class="category-title">General</div>
+                        <div class="settings-item" data-section="appearance">
+                            <i class="fas fa-palette"></i>
+                            <span>Appearance</span>
+                        </div>
+                        <div class="settings-item" data-section="language">
+                            <i class="fas fa-language"></i>
+                            <span>Language & Region</span>
+                        </div>
+                        <div class="settings-item" data-section="backup">
+                            <i class="fas fa-database"></i>
+                            <span>Backup & Restore</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Content -->
+                <div class="settings-content">
+                    <!-- User Management Section -->
+                    <div class="settings-section active" id="users-section">
+                        <div class="section-header">
+                            <div class="section-title">User Management</div>
+                            <div class="section-description">Manage system users, their roles and permissions</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Add New User
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <div class="search-bar">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" placeholder="Search users...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="user-list">
+                            <div class="user-item">
+                                <div class="user-avatar" style="background: #e53935;">AD</div>
+                                <div class="user-info">
+                                    <div class="user-name">Admin User</div>
+                                    <div class="user-email">admin@smartspace.com</div>
+                                </div>
+                                <div class="user-role role-admin">Administrator</div>
+                                <div class="user-actions">
+                                    <button class="btn btn-outline btn-small">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline btn-small">
+                                        <i class="fas fa-key"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="user-item">
+                                <div class="user-avatar" style="background: #2196F3;">MJ</div>
+                                <div class="user-info">
+                                    <div class="user-name">Manager John</div>
+                                    <div class="user-email">manager@smartspace.com</div>
+                                </div>
+                                <div class="user-role role-moderator">Manager</div>
+                                <div class="user-actions">
+                                    <button class="btn btn-outline btn-small">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline btn-small">
+                                        <i class="fas fa-key"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="user-item">
+                                <div class="user-avatar" style="background: #4CAF50;">US</div>
+                                <div class="user-info">
+                                    <div class="user-name">User Smith</div>
+                                    <div class="user-email">user@smartspace.com</div>
+                                </div>
+                                <div class="user-role role-user">User</div>
+                                <div class="user-actions">
+                                    <button class="btn btn-outline btn-small">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-outline btn-small">
+                                        <i class="fas fa-key"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Roles & Permissions Section -->
+                    <div class="settings-section" id="roles-section">
+                        <div class="section-header">
+                            <div class="section-title">Roles & Permissions</div>
+                            <div class="section-description">Define user roles and their access permissions</div>
+                        </div>
+
+                        <div class="form-group">
+                            <table class="permission-table">
+                                <thead>
+                                    <tr>
+                                        <th>Permission</th>
+                                        <th>Administrator</th>
+                                        <th>Manager</th>
+                                        <th>User</th>
+                                        <th>Guest</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>View Dashboard</td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Manage Users</td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox"></td>
+                                        <td><input type="checkbox"></td>
+                                        <td><input type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Edit Products</td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox"></td>
+                                        <td><input type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>View Reports</td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>System Settings</td>
+                                        <td><input type="checkbox" checked></td>
+                                        <td><input type="checkbox"></td>
+                                        <td><input type="checkbox"></td>
+                                        <td><input type="checkbox"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary">Save Permissions</button>
+                            <button class="btn btn-outline">Reset to Default</button>
+                        </div>
+                    </div>
+
+                    <!-- System Configuration Section -->
+                    <div class="settings-section" id="system-section">
+                        <div class="section-header">
+                            <div class="section-title">System Configuration</div>
+                            <div class="section-description">Configure system-wide settings and preferences</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">System Name</label>
+                            <input type="text" class="form-control" value="Smart Space">
+                            <div class="form-text">This name will be displayed throughout the system</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">System URL</label>
+                            <input type="text" class="form-control" value="https://smartspace.example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Default Timezone</label>
+                            <select class="form-control">
+                                <option>UTC-8:00 Pacific Time</option>
+                                <option selected>UTC-5:00 Eastern Time</option>
+                                <option>UTC+0:00 Greenwich Mean Time</option>
+                                <option>UTC+1:00 Central European Time</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Date Format</label>
+                            <select class="form-control">
+                                <option>MM/DD/YYYY</option>
+                                <option selected>DD/MM/YYYY</option>
+                                <option>YYYY-MM-DD</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">System Maintenance</label>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="maintenanceMode">
+                                <label for="maintenanceMode">Enable Maintenance Mode</label>
+                            </div>
+                            <div class="form-text">When enabled, only administrators can access the system</div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary">Save Configuration</button>
+                            <button class="btn btn-outline">Cancel</button>
+                        </div>
+                    </div>
+
+                    <!-- Security Settings Section -->
+                    <div class="settings-section" id="security-section">
+                        <div class="section-header">
+                            <div class="section-title">Security Settings</div>
+                            <div class="section-description">Configure security policies and authentication settings</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Password Policy</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="minLength" checked>
+                                    <label for="minLength">Minimum 8 characters</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="uppercase" checked>
+                                    <label for="uppercase">Require uppercase letters</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="numbers" checked>
+                                    <label for="numbers">Require numbers</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="specialChars">
+                                    <label for="specialChars">Require special characters</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Session Timeout</label>
+                            <select class="form-control">
+                                <option>15 minutes</option>
+                                <option>30 minutes</option>
+                                <option selected>1 hour</option>
+                                <option>2 hours</option>
+                                <option>4 hours</option>
+                            </select>
+                            <div class="form-text">Automatically log out users after period of inactivity</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Two-Factor Authentication</label>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="2faEnabled">
+                                <label for="2faEnabled">Enable Two-Factor Authentication</label>
+                            </div>
+                            <div class="form-text">Users will be required to set up 2FA on next login</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Login Attempts</label>
+                            <input type="number" class="form-control" value="5" min="1" max="10">
+                            <div class="form-text">Number of failed login attempts before account lockout</div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary">Update Security Settings</button>
+                            <button class="btn btn-outline">Reset to Default</button>
+                        </div>
+                    </div>
+
+                    <!-- Profile Settings Section -->
+                    <div class="settings-section" id="profile-section">
+                        <div class="section-header">
+                            <div class="section-title">Profile Settings</div>
+                            <div class="section-description">Manage your personal profile information</div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">First Name</label>
+                                <input type="text" class="form-control" value="John">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name</label>
+                                <input type="text" class="form-control" value="Doe">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" value="john.doe@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" value="+1 (555) 123-4567">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Bio</label>
+                            <textarea class="form-control" rows="4" placeholder="Tell us about yourself...">Senior administrator with 5+ years of experience in system management.</textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary">Update Profile</button>
+                            <button class="btn btn-outline">Cancel</button>
+                        </div>
+                    </div>
+
+                    <!-- Preferences Section -->
+                    <div class="settings-section" id="preferences-section">
+                        <div class="section-header">
+                            <div class="section-title">Preferences</div>
+                            <div class="section-description">Customize your experience and interface preferences</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Default Dashboard View</label>
+                            <select class="form-control">
+                                <option selected>Analytics Overview</option>
+                                <option>Recent Activity</option>
+                                <option>Quick Actions</option>
+                                <option>Custom Layout</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Items Per Page</label>
+                            <select class="form-control">
+                                <option>10</option>
+                                <option selected>25</option>
+                                <option>50</option>
+                                <option>100</option>
+                            </select>
+                            <div class="form-text">Number of items to display in lists and tables</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Interface Preferences</label>
+                            <div class="checkbox-group">
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="compactMode" checked>
+                                    <label for="compactMode">Compact Mode</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="sidebarCollapsed">
+                                    <label for="sidebarCollapsed">Collapse Sidebar by Default</label>
+                                </div>
+                                <div class="checkbox-item">
+                                    <input type="checkbox" id="animations" checked>
+                                    <label for="animations">Enable Animations</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Data Refresh Interval</label>
+                            <select class="form-control">
+                                <option>1 minute</option>
+                                <option selected>5 minutes</option>
+                                <option>15 minutes</option>
+                                <option>30 minutes</option>
+                                <option>Manual refresh only</option>
+                            </select>
+                            <div class="form-text">How often to automatically refresh data in the dashboard</div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-primary">Save Preferences</button>
+                            <button class="btn btn-outline">Reset to Default</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer"></div>
+
+        <!-- Chatbot -->
+        <div class="chatbot">
+            <i class="fas fa-robot"></i>
+        </div>
+
+        <!-- Bottom Navigation (Mobile) -->
+        <div class="bottom-nav">
+            <div class="nav-items">
+                <div class="nav-item">
+                    <i class="fas fa-th-large nav-icon"></i>
+                    <span>Dashboard</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-shopping-cart nav-icon"></i>
+                    <span>Orders</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-box nav-icon"></i>
+                    <span>Products</span>
+                </div>
+                <div class="nav-item">
+                    <i class="fas fa-users nav-icon"></i>
+                    <span>Customers</span>
+                </div>
+                <div class="nav-item active">
+                    <i class="fas fa-cog nav-icon"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const toastContainer = document.getElementById('toastContainer');
+        const settingsItems = document.querySelectorAll('.settings-item');
+        const settingsSections = document.querySelectorAll('.settings-section');
+        const tabs = document.querySelectorAll('.tab');
+        const adminSettings = document.querySelector('.admin-settings');
+        const clientSettings = document.querySelector('.client-settings');
+
+        // Initialize the application
+        function init() {
+            setupEventListeners();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Toggle Sidebar
+            toggleSidebar.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+            });
+
+            // Theme Switching
+            themeOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    const theme = option.getAttribute('data-theme');
+                    document.body.className = theme;
+                    showToast(`Theme changed to ${theme.replace('theme-', '').replace('-', ' ')}`, 'info');
+                });
+            });
+
+            // Settings navigation
+            settingsItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Remove active class from all items
+                    settingsItems.forEach(i => i.classList.remove('active'));
+                    // Add active class to clicked item
+                    item.classList.add('active');
+                    
+                    // Hide all sections
+                    settingsSections.forEach(section => section.classList.remove('active'));
+                    
+                    // Show corresponding section
+                    const sectionId = item.getAttribute('data-section') + '-section';
+                    const targetSection = document.getElementById(sectionId);
+                    if (targetSection) {
+                        targetSection.classList.add('active');
+                    }
+                });
+            });
+
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabType = tab.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show/hide settings categories based on tab
+                    if (tabType === 'admin') {
+                        adminSettings.style.display = 'block';
+                        clientSettings.style.display = 'none';
+                        
+                        // Activate first admin setting
+                        const firstAdminItem = adminSettings.querySelector('.settings-item');
+                        if (firstAdminItem) {
+                            settingsItems.forEach(i => i.classList.remove('active'));
+                            firstAdminItem.classList.add('active');
+                            
+                            // Show corresponding section
+                            settingsSections.forEach(section => section.classList.remove('active'));
+                            const sectionId = firstAdminItem.getAttribute('data-section') + '-section';
+                            const targetSection = document.getElementById(sectionId);
+                            if (targetSection) {
+                                targetSection.classList.add('active');
+                            }
+                        }
+                    } else {
+                        adminSettings.style.display = 'none';
+                        clientSettings.style.display = 'block';
+                        
+                        // Activate first client setting
+                        const firstClientItem = clientSettings.querySelector('.settings-item');
+                        if (firstClientItem) {
+                            settingsItems.forEach(i => i.classList.remove('active'));
+                            firstClientItem.classList.add('active');
+                            
+                            // Show corresponding section
+                            settingsSections.forEach(section => section.classList.remove('active'));
+                            const sectionId = firstClientItem.getAttribute('data-section') + '-section';
+                            const targetSection = document.getElementById(sectionId);
+                            if (targetSection) {
+                                targetSection.classList.add('active');
+                            }
+                        }
+                    }
+                    
+                    showToast(`Switched to ${tabType} settings`, 'info');
+                });
+            });
+
+            // Form submission handlers
+            document.querySelectorAll('.btn-primary').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    if (e.target.closest('.form-actions')) {
+                        e.preventDefault();
+                        showToast('Settings saved successfully', 'success');
+                    }
+                });
+            });
+
+            // Initialize with admin tab active
+            document.querySelector('.tab[data-tab="admin"]').click();
+        }
+
+        // Show toast notification
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: 'check-circle',
+                error: 'exclamation-circle',
+                warning: 'exclamation-triangle',
+                info: 'info-circle'
+            };
+            
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas fa-${icons[type]}"></i>
+                </div>
+                <div class="toast-content">
+                    <div class="toast-title">${type.charAt(0).toUpperCase() + type.slice(1)}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.style.animation = 'toastIn 0.3s ease reverse';
+                    setTimeout(() => {
+                        if (toast.parentNode) {
+                            toastContainer.removeChild(toast);
+                        }
+                    }, 300);
+                }
+            }, 5000);
+            
+            // Close button
+            toast.querySelector('.toast-close').addEventListener('click', () => {
+                if (toast.parentNode) {
+                    toastContainer.removeChild(toast);
+                }
+            });
+        }
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
